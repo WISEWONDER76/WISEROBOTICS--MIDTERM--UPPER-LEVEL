@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 WISEROBOTICS AND STEM Master Quiz! 💡</title>
+    <style>
+        /* ---------------------------------------------------- */
+        /* CSS: Global and Layout Styling */
+        /* ---------------------------------------------------- */
+
+        :root {
+            --primary-color: #3498db; /* Blue */
+            --secondary-color: #2ecc71; /* Green */
+            --accent-color: #f39c12; /* Orange */
+            --background-color: #ecf0f1; /* Light Gray */
+            --text-color: #2c3e50; /* Dark Blue/Gray */
+        }
+
+        body {
+            /* Changed font to a clearer, non-curly one */
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif; 
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        /* Logo Container Style */
+        #logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #logo-container img {
+            max-width: 150px; 
+            height: auto;
+            border-radius: 8px; 
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+        
+        /* UPDATED INSTRUCTIONS SECTION STYLE */
+        #instructions-section {
+            background-color: #e8f8f5; /* Very light green background */
+            border: 3px solid var(--secondary-color); /* Strong green border */
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        #instructions-section h2 {
+            color: var(--text-color);
+            font-size: 1.8em;
+            margin-top: 0;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        #instructions-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+
+        #instructions-section li {
+            margin-bottom: 15px;
+            font-size: 1.2em; /* Increased font size */
+            font-weight: bold; /* All instruction text is bold */
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        /* Styling for key points within instructions */
+        #instructions-section li strong {
+            color: var(--primary-color);
+            font-weight: bolder;
+        }
+        /* END UPDATED INSTRUCTIONS SECTION STYLE */
+
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.5em; 
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        
+        /* Student Info Section */
+        #info-section {
+             display: none; /* Hidden initially, shown after instructions */
+        }
+        
+        .info-input label {
+            display: block;
+            font-size: 1.2em;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .info-input input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            font-size: 1.1em;
+            box-sizing: border-box;
+        }
+
+        /* Quiz Question Display */
+        #quiz-section {
+            display: none; /* Hidden until start button is pressed */
+        }
+
+        #question-display {
+            min-height: 100px; 
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed var(--secondary-color);
+            border-radius: 10px;
+            background-color: #f0f8ff; /* Lightest blue */
+        }
+
+        #question-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .option-label {
+            display: block;
+            font-size: 1.2em;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .option-label:hover {
+            background-color: #f0f8ff; 
+            border-color: var(--primary-color);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.5); 
+            vertical-align: middle;
+        }
+
+        /* Navigation Buttons */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            color: white;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        #continue-btn {
+            background-color: var(--primary-color);
+            width: 100%;
+            margin-top: 15px;
+            font-size: 1.5em;
+        }
+        #continue-btn:hover { background-color: #2980b9; }
+
+        #start-quiz-btn {
+            background-color: var(--secondary-color);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #start-quiz-btn:hover { background-color: #27ae60; } 
+
+        #next-btn, #submit-btn {
+            background-color: var(--primary-color);
+        }
+
+        #next-btn:hover, #submit-btn:hover { background-color: #2980b9; } 
+
+        #skip-btn {
+            background-color: var(--accent-color);
+        }
+
+        #skip-btn:hover { background-color: #e67e22; } 
+
+        /* Results Section */
+        #results-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            border: 3px solid var(--accent-color);
+            border-radius: 15px;
+            margin-top: 20px;
+            background-color: #fffaf0; 
+        }
+
+        #score-display {
+            font-size: 3em;
+            color: var(--secondary-color);
+            margin: 10px 0;
+        }
+
+        #award-display {
+            font-size: 2.2em;
+            font-weight: bolder;
+            margin-bottom: 20px;
+        }
+
+        .gold { color: gold; text-shadow: 2px 2px 4px #c9b130; }
+        .diamond { color: #87ceeb; text-shadow: 2px 2px 4px #4682b4; }
+        .bronze { color: #cd7f32; text-shadow: 2px 2px 4px #a0522d; }
+
+        #comment-display {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+        }
+
+        #print-btn {
+            background-color: #9b59b6; 
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        #print-btn:hover { background-color: #8e44ad; }
+
+        #try-again-btn {
+            background-color: #e74c3c; 
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        #try-again-btn:hover { background-color: #c0392b; }
+        
+        #show-answers-btn {
+            background-color: #1abc9c; 
+            margin-top: 10px;
+        }
+        
+        #show-answers-btn:hover { background-color: #16a085; }
+
+        /* Answer Key Section */
+        #answer-key {
+            display: none;
+            margin-top: 30px;
+            text-align: left;
+            padding: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            background-color: #f4f6f6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #answer-key h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .answer-item {
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .answer-item strong {
+            display: block;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .answer-item span {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Print-specific styles */
+        @media print {
+            body { background-color: white; }
+            .container { box-shadow: none; border: none; }
+            .navigation, #try-again-btn, #start-quiz-btn, #show-answers-btn, #instructions-section, #continue-btn { display: none; } 
+            #results-section { border: none; background-color: white; }
+            h1 { color: black; border-color: black; }
+            .info-input input { border: 1px solid black; }
+            /* Force score/answers to be visible for printing */
+            #results-section, #answer-key { display: block !important; }
+            #logo-container img { border: none; padding: 0; }
+        }
+
+        /* Attempts Info */
+        #attempts-info {
+            text-align: center;
+            font-size: 1em;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="logo-container">
+            <img src="wiserobotics_logo.jpg" alt="Wise Robotics Logo">
+        </div>
+        
+        <h1>🤖 WISEROBOTICS AND STEM Master Quiz! 💡</h1>
+
+        <div id="instructions-section">
+            <h2>📝 Important Instructions for the Test</h2>
+            <ul>
+                <li>**Total Questions:** This test contains **40 questions** covering key topics in Robotics and Electronics.</li>
+                <li>**Answering:** Select your answer (A, B, or C) by clicking on the option. Your selection is **automatically saved**.</li>
+                <li>**Navigation:** Use **"Next Question"** to move forward. You can use **"Skip Question"** to move to the next question and come back later.</li>
+                <li>**Trials:** You have a maximum of **2 attempts** to take the entire quiz. Your remaining attempts are shown below.</li>
+                <li>**Submission:** On the final question, the navigation button changes to **"Finish & Get Score! 💯"**. Click this to view your results.</li>
+                <li>**Reviewing:** After your final attempt, the **"Show Correct Answers"** button will appear, allowing you to review the full answer key.</li>
+            </ul>
+            <button id="continue-btn">Continue to Student Details ▶️</button>
+        </div>
+        <div id="info-section">
+            <p style="text-align: center; font-size: 1.1em;">Please enter your details to start the test!</p>
+            <div class="info-input">
+                <label for="student-name">Name:</label>
+                <input type="text" id="student-name" placeholder="Your Full Name" required>
+            </div>
+            <div class="info-input">
+                <label for="student-class">Class:</label>
+                <input type="text" id="student-class" placeholder="Your Class/Grade" required>
+            </div>
+            <button id="start-quiz-btn">Start The Master Test! 🚀</button>
+            <p id="attempts-info">Attempts Remaining: 2</p>
+        </div>
+
+        <div id="quiz-section">
+            <h2 id="quiz-heading" style="color: var(--primary-color);"></h2>
+            <div id="question-display">
+                <p id="question-text"></p>
+                <form id="options-form"></form>
+            </div>
+            <div class="navigation">
+                <button id="skip-btn">Skip Question ➡️</button>
+                <button id="next-btn">Next Question ▶️</button>
+                <button id="submit-btn" style="display: none;">Finish & Get Score! 💯</button>
+            </div>
+        </div>
+
+        <div id="results-section">
+            <h2>WISEROBOTICS AND STEM Quiz Results for <span id="result-name" style="color: var(--primary-color);"></span> (<span id="result-class"></span>)</h2>
+            <p style="font-size: 1.5em; font-weight: bold;">Your Score:</p>
+            <p id="score-display"></p>
+            <p id="award-display"></p>
+            <p id="comment-display"></p>
+            <button id="print-btn" onclick="window.print()">Print Result 🖨️</button>
+            <button id="try-again-btn" style="display: none;">Try Again! 🔄</button>
+            <button id="show-answers-btn" style="display: none;">Show Correct Answers 👀</button>
+
+            <div id="answer-key">
+                <h3>Answer Key</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // JAVASCRIPT: Quiz Logic 
+        // ----------------------------------------------------
+
+        // --- 1. QUIZ DATA (40 Questions) ---
+        const quizData = [
+            // A. Understanding Robots (1–10)
+            { section: "A. Understanding Robots", question: "What is a robot?", options: ["A machine that can perform tasks automatically", "A living animal that obeys orders", "A toy that cannot move"], answer: "A" },
+            { question: "The main feature that makes a robot different from ordinary machines is its ability to:", options: ["Sing songs", "Be controlled or programmed", "Change color"], answer: "B" },
+            { question: "Which of the following is NOT a type of robot?", options: ["Industrial robot", "Medical robot", "Musical robot"], answer: "C" },
+            { question: "Robots are used in factories mainly to:", options: ["Replace workers who are lazy", "Do repetitive and dangerous tasks", "Waste materials"], answer: "B" },
+            { question: "Robots that work in hospitals to help doctors are called:", options: ["Domestic robots", "Medical robots", "Space robots"], answer: "B" },
+            { question: "A robot that cleans floors automatically is an example of a:", options: ["Service robot", "Industrial robot", "Military robot"], answer: "A" },
+            { question: "Robots can be controlled by:", options: ["Sensors and programs", "Humans only", "The weather"], answer: "A" },
+            { question: "A drone used for photography is an example of:", options: ["Agricultural robot", "Flying robot", "Underwater robot"], answer: "B" },
+            { question: "The part of a robot that moves its arms or wheels is called:", options: ["Sensor", "Actuator", "Battery"], answer: "B" },
+            { question: "The “brain” of a robot that processes commands is the:", options: ["Motor", "Microcontroller", "LED"], answer: "B" },
+
+            // B. Importance and Disadvantages of Robots (11–15)
+            { section: "B. Importance and Disadvantages of Robots", question: "Robots help humans by:", options: ["Reducing errors and increasing speed", "Making work slower", "Destroying jobs only"], answer: "A" },
+            { question: "A disadvantage of robots is that they:", options: ["Always need food", "Can replace human workers", "Can never make mistakes"], answer: "B" },
+            { question: "Robots are often used in dangerous areas because:", options: ["They can be repaired easily", "They don’t feel pain or fear", "They can talk"], answer: "B" },
+            { question: "Overdependence on robots can make people:", options: ["Lazy", "Faster", "Smarter"], answer: "A" },
+            { question: "The use of robots in schools helps students to:", options: ["Sleep in class", "Learn coding and technology", "Stop reading books"], answer: "B" },
+
+            // C. Electronic Components (16–25)
+            { section: "C. Electronic Components", question: "An LED is a component that:", options: ["Gives light when current passes through it", "Makes sound", "Stores energy"], answer: "A" },
+            { question: "A resistor is used to:", options: ["Reduce current flow", "Increase battery power", "Make light blink"], answer: "A" },
+            { question: "A breadboard is useful for:", options: ["Making circuits without soldering", "Eating bread", "Fixing broken wires"], answer: "A" },
+            { question: "Jumper wires are used to:", options: ["Connect components on a breadboard", "Decorate circuits", "Cut current"], answer: "A" },
+            { question: "The positive side of an LED is called the:", options: ["Anode", "Cathode", "Diode"], answer: "A" },
+            { question: "The battery supplies:", options: ["Electric power", "Sound", "Resistance"], answer: "A" },
+            { question: "A switch is used to:", options: ["Turn current ON or OFF", "Store energy", "Slow down current"], answer: "A" },
+            { question: "The resistor color bands are used to:", options: ["Show its value", "Decorate the resistor", "Make it shine"], answer: "A" },
+            { question: "A capacitor stores:", options: ["Electrical energy", "Light", "Heat"], answer: "A" },
+            { question: "The function of a motor in a robot is to:", options: ["Create movement", "Measure distance", "Show lights"], answer: "A" },
+
+            // D. Sensors and Control (26–30)
+            { section: "D. Sensors and Control", question: "A sensor is a device that:", options: ["Detects changes in the environment", "Stores information permanently", "Makes the robot speak"], answer: "A" },
+            { question: "An ultrasonic sensor is used to:", options: ["Measure distance", "Detect light", "Detect sound volume"], answer: "A" },
+            { question: "A light-dependent resistor (LDR) detects:", options: ["Light intensity", "Noise", "Pressure"], answer: "A" },
+            { question: "The sensor that can detect objects without touching them is:", options: ["Touch sensor", "Ultrasonic sensor", "Sound sensor"], answer: "B" },
+            { question: "Temperature sensors are used in robots to:", options: ["Check heat levels", "Blink lights", "Control sound"], answer: "A" },
+
+            // E. Programming and Microcontrollers (31–35)
+            { section: "E. Programming and Microcontrollers", question: "A microcontroller is also called the robot’s:", options: ["Brain", "Heart", "Leg"], answer: "A" },
+            { question: "Which of these is an example of a microcontroller board?", options: ["Arduino Uno", "Light bulb", "Power bank"], answer: "A" },
+            { question: "In programming, giving a robot instructions to move is called:", options: ["Coding", "Painting", "Charging"], answer: "A" },
+            { question: "The language used to program robots is often:", options: ["English", "C++ or Python", "French"], answer: "B" },
+            { question: "Uploading a program means:", options: ["Sending the code to the robot", "Drawing a circuit", "Cleaning the robot"], answer: "A" },
+
+            // F. Safety and Maintenance (36–40)
+            { section: "F. Safety and Maintenance", question: "Before working on a circuit, always:", options: ["Disconnect the power", "Add more wires", "Touch metal parts"], answer: "A" },
+            { question: "Too much current can cause:", options: ["Overheating or fire", "Extra light", "No effect"], answer: "A" },
+            { question: "The safe way to handle electronic parts is by:", options: ["Holding them gently and dry-handed", "Throwing them", "Washing with water"], answer: "A" },
+            { question: "Robots should be maintained by:", options: ["Regular cleaning and software updates", "Sleeping", "Ignoring them"], answer: "A" },
+            { question: "If a circuit does not work, you should first:", options: ["Check the connections", "Hit the board", "Replace all parts"], answer: "A" },
+        ];
+        
+        // --- 2. STATE VARIABLES ---
+        let currentQuestionIndex = 0;
+        let shuffledQuizData = []; 
+        const studentAnswers = Array(quizData.length).fill(null); 
+        const totalQuestions = quizData.length;
+        const ATTEMPT_KEY = 'roboticsQuizAttempts';
+        const MAX_ATTEMPTS = 2;
+        const optionLetters = ['A', 'B', 'C'];
+
+        // --- Utility Function for Shuffling (Fisher-Yates) ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; 
+            }
+            return array;
+        }
+
+        // --- 3. DOM ELEMENTS ---
+        const elements = {
+            instructionsSection: document.getElementById('instructions-section'),
+            continueBtn: document.getElementById('continue-btn'), 
+            infoSection: document.getElementById('info-section'),
+            studentName: document.getElementById('student-name'),
+            studentClass: document.getElementById('student-class'),
+            startBtn: document.getElementById('start-quiz-btn'),
+            attemptsInfo: document.getElementById('attempts-info'),
+            quizSection: document.getElementById('quiz-section'),
+            quizHeading: document.getElementById('quiz-heading'),
+            questionText: document.getElementById('question-text'),
+            optionsForm: document.getElementById('options-form'),
+            nextBtn: document.getElementById('next-btn'),
+            skipBtn: document.getElementById('skip-btn'),
+            submitBtn: document.getElementById('submit-btn'),
+            resultsSection: document.getElementById('results-section'),
+            resultName: document.getElementById('result-name'),
+            resultClass: document.getElementById('result-class'),
+            scoreDisplay: document.getElementById('score-display'),
+            awardDisplay: document.getElementById('award-display'),
+            commentDisplay: document.getElementById('comment-display'),
+            tryAgainBtn: document.getElementById('try-again-btn'),
+            showAnswersBtn: document.getElementById('show-answers-btn'),
+            answerKey: document.getElementById('answer-key')
+        };
+
+        // --- 4. ATTEMPT MANAGEMENT ---
+        function getAttempts() {
+            return parseInt(localStorage.getItem(ATTEMPT_KEY) || '0');
+        }
+
+        function incrementAttempts() {
+            let attempts = getAttempts();
+            localStorage.setItem(ATTEMPT_KEY, attempts + 1);
+            return attempts + 1;
+        }
+
+        function updateAttemptsInfo() {
+            const attempts = getAttempts();
+            const remaining = MAX_ATTEMPTS - attempts;
+            elements.attemptsInfo.textContent = `Attempts Remaining: ${remaining}`;
+            if (remaining <= 0) {
+                elements.startBtn.disabled = true;
+                elements.startBtn.textContent = 'No Attempts Left 😔';
+            } else {
+                elements.startBtn.disabled = false;
+                elements.startBtn.textContent = 'Start The Master Test! 🚀';
+            }
+        }
+
+        // --- 5. QUIZ FLOW FUNCTIONS ---
+        function loadQuestion() {
+            if (currentQuestionIndex >= totalQuestions) {
+                showResults();
+                return;
+            }
+
+            const data = shuffledQuizData[currentQuestionIndex];
+
+            if (data.section) {
+                elements.quizHeading.textContent = `${currentQuestionIndex + 1}/${totalQuestions} | ${data.section}`;
+            } else {
+                 elements.quizHeading.textContent = `${currentQuestionIndex + 1}/${totalQuestions}`;
+            }
+
+            elements.questionText.textContent = data.question;
+            
+            elements.optionsForm.innerHTML = ''; 
+            data.options.forEach((option, index) => {
+                const optionId = `q${currentQuestionIndex}-opt${index}`;
+                const letter = optionLetters[index];
+
+                const label = document.createElement('label');
+                label.className = 'option-label';
+                label.htmlFor = optionId;
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `question-${currentQuestionIndex}`;
+                input.id = optionId;
+                input.value = letter;
+                
+                if (studentAnswers[currentQuestionIndex] === letter) {
+                    input.checked = true;
+                }
+
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(` ${letter}. ${option}`));
+                elements.optionsForm.appendChild(label);
+
+                input.addEventListener('change', () => {
+                    studentAnswers[currentQuestionIndex] = letter;
+                });
+            });
+
+            const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
+            elements.nextBtn.style.display = isLastQuestion ? 'none' : 'inline-block';
+            elements.submitBtn.style.display = isLastQuestion ? 'inline-block' : 'none';
+        }
+
+        function saveAndMove(direction = 1) {
+            currentQuestionIndex += direction;
+            
+            if (currentQuestionIndex < 0) {
+                currentQuestionIndex = 0; 
+            }
+            
+            if (currentQuestionIndex >= totalQuestions) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function calculateScore() {
+            let correctCount = 0;
+            
+            shuffledQuizData.forEach((data, index) => {
+                const correctAnswerLetter = data.answer; 
+
+                if (studentAnswers[index] === correctAnswerLetter) {
+                    correctCount++;
+                }
+            });
+
+            const percentage = (correctCount / totalQuestions) * 100;
+            return { correctCount, percentage: Math.round(percentage) };
+        }
+
+        function getAward(percentage) {
+            let award = '';
+            let comment = '';
+            let className = '';
+
+            if (percentage >= 90) {
+                award = 'PLATINUM Genius! 👑✨';
+                comment = "Absolutely brilliant! You are a master of robotics and electronics!";
+                className = 'gold';
+            } else if (percentage >= 75) {
+                award = 'GOLD Medal! 🏆⭐';
+                comment = "Outstanding performance! You know your circuits and bots!";
+                className = 'gold';
+            } else if (percentage >= 60) {
+                award = 'SILVER Star! 🥈🌟';
+                comment = "Great job! A few more steps and you'll reach the top!";
+                className = 'diamond';
+            } else if (percentage >= 40) {
+                award = 'BRONZE Ribbon! 🥉🎀';
+                comment = "Solid effort! Review the sections you missed and try again!";
+                className = 'bronze';
+            } else {
+                award = 'Keep Learning! 💪';
+                comment = "The world of tech is vast! Keep studying and try again to improve!";
+                className = '';
+            }
+
+            return { award, comment, className };
+        }
+
+        function showResults() {
+            elements.quizSection.style.display = 'none';
+            elements.resultsSection.style.display = 'block';
+            elements.answerKey.style.display = 'none'; 
+
+            const { correctCount, percentage } = calculateScore();
+            const { award, comment, className } = getAward(percentage);
+
+            elements.resultName.textContent = elements.studentName.value;
+            elements.resultClass.textContent = elements.studentClass.value;
+            elements.scoreDisplay.textContent = `${percentage}% (${correctCount}/${totalQuestions})`;
+            elements.scoreDisplay.style.color = className ? '' : elements.scoreDisplay.style.color;
+
+            elements.awardDisplay.textContent = award;
+            elements.awardDisplay.className = className;
+            elements.commentDisplay.textContent = comment;
+
+            const currentAttempts = getAttempts();
+            const attemptsLeft = MAX_ATTEMPTS - currentAttempts;
+
+            if (attemptsLeft > 0) {
+                elements.tryAgainBtn.style.display = 'inline-block';
+                elements.showAnswersBtn.style.display = 'none';
+            } else {
+                elements.tryAgainBtn.style.display = 'none';
+                elements.showAnswersBtn.style.display = 'inline-block';
+            }
+        }
+
+        function generateAnswerKey() {
+            let html = '<h3>Answer Key (Questions in the order you saw them)</h3>';
+            let currentSection = '';
+
+            shuffledQuizData.forEach((data, index) => {
+                if (data.section && data.section !== currentSection) {
+                    html += `<h4>${data.section}</h4>`;
+                    currentSection = data.section;
+                }
+                
+                const correctAnswerLetter = data.answer; 
+                const correctOptionText = data.options[optionLetters.indexOf(correctAnswerLetter)]; 
+
+                html += `<div class="answer-item">`;
+                html += `<strong>${index + 1}. ${data.question}</strong>`;
+                html += `Correct Answer: <span>${correctAnswerLetter}. ${correctOptionText}</span>`;
+                html += `</div>`;
+            });
+
+            elements.answerKey.innerHTML = html;
+            elements.answerKey.style.display = 'block';
+            elements.showAnswersBtn.style.display = 'none'; 
+        }
+
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            studentAnswers.fill(null);
+            elements.resultsSection.style.display = 'none';
+            
+            if (getAttempts() < MAX_ATTEMPTS) {
+                elements.instructionsSection.style.display = 'block';
+                elements.infoSection.style.display = 'none';
+            } else {
+                elements.infoSection.style.display = 'block';
+            }
+            elements.quizSection.style.display = 'none';
+            elements.showAnswersBtn.style.display = 'none';
+            elements.answerKey.style.display = 'none';
+            updateAttemptsInfo();
+        }
+        
+        // --- 6. EVENT LISTENERS ---
+        
+        // NEW EVENT LISTENER: Continue Button
+        elements.continueBtn.addEventListener('click', () => {
+             elements.instructionsSection.style.display = 'none';
+             elements.infoSection.style.display = 'block';
+        });
+
+
+        elements.startBtn.addEventListener('click', () => {
+            const name = elements.studentName.value.trim();
+            const className = elements.studentClass.value.trim();
+
+            if (!name || !className) {
+                alert("Please enter your Name and Class to start the quiz!");
+                return;
+            }
+            
+            if (getAttempts() >= MAX_ATTEMPTS) {
+                 alert("You have used all your attempts. You cannot start the quiz.");
+                 return;
+            }
+
+            shuffledQuizData = shuffleArray([...quizData]); 
+            
+            incrementAttempts();
+
+            elements.infoSection.style.display = 'none';
+            elements.quizSection.style.display = 'block';
+
+            currentQuestionIndex = 0;
+            studentAnswers.fill(null); 
+            loadQuestion();
+        });
+
+        elements.nextBtn.addEventListener('click', () => saveAndMove(1));
+        elements.skipBtn.addEventListener('click', () => saveAndMove(1));
+        elements.submitBtn.addEventListener('click', showResults);
+        elements.tryAgainBtn.addEventListener('click', resetQuiz);
+        elements.showAnswersBtn.addEventListener('click', generateAnswerKey);
+
+        // Initial setup: Ensure only instructions are visible on load
+        updateAttemptsInfo();
+        elements.infoSection.style.display = 'none'; // Hide info section
+    </script>
+</body>
+</html>
