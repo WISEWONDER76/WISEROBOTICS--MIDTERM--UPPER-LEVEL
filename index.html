@@ -464,7 +464,7 @@
         const studentAnswers = Array(quizData.length).fill(null); 
         const totalQuestions = quizData.length;
         const ATTEMPT_KEY = 'roboticsQuizAttempts';
-        const MAX_ATTEMPTS = 2;
+        const MAX_ATTEMPTS = 200;
         const optionLetters = ['A', 'B', 'C'];
 
         // --- Utility Function for Shuffling (Fisher-Yates) ---
@@ -752,4 +752,5 @@
         elements.infoSection.style.display = 'none'; // Hide info section
     </script>
 </body>
+
 </html>
